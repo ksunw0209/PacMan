@@ -1,3 +1,4 @@
+package ppkg;
 import java.awt.Rectangle;
 
 public abstract class Movable extends Rectangle {

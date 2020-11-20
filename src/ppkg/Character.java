@@ -1,3 +1,4 @@
+package ppkg;
 import java.awt.image.BufferedImage;
 
 public class Character { // Appearance에서 받아온 유령이미지와 팩맨 이미지를 저장

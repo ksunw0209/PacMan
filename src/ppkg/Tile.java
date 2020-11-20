@@ -1,15 +1,16 @@
+package ppkg;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Seed extends Rectangle{
-	
-	public Seed(int x, int y) {
-		setBounds(x+12, y+12, 8, 8);
+public class Tile extends Rectangle{
+		
+	public Tile(int x, int y) {
+		setBounds(x, y, 32, 32);
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.YELLOW);
+		g.setColor(new Color(33, 0, 127));
 		g.fillRect(x, y, width, height);
 	}
 	
