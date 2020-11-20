@@ -1,14 +1,12 @@
 package ppkg;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
 
-	public boolean right;
-	public boolean left;
-	public boolean up;
-	public boolean down;
+	public Movement move = Movement.NOOP;
+	public Movement move_queue= Movement.NOOP;
+
 	private int speed = 3;
 	private int imageIndex = 0;
 	public long startTime = 0;
@@ -19,6 +17,21 @@ public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해
 		curScore = Game.score;
 		curScore.score = 0;
 		setBounds(x, y, 30, 30);
+	}
+
+	public boolean canMove(Movement move) {
+		switch(move) {
+			case RIGHT:
+				return canMove(x + speed, y);
+			case LEFT:
+				return canMove(x - speed, y);
+			case UP:
+				return canMove(x, y - speed);
+			case DOWN:
+				return canMove(x, y + speed);
+			default:
+				return true;
+		}
 	}
 
 	private boolean canMove(int next_x, int next_y) { // Ghost와 같은 함수 벽이 있으면 움직이지 못함
@@ -40,31 +53,37 @@ public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해
 	}
 
 	public void tick() { // 각 방향으로 움직일 때마다 이미지를 바꿈
+		
+		// 더 이상 이동중인 방향으로 갈 수 없을 때
+		if (!canMove(move)) {
+			move = move_queue;
+		}
 
-		if (right && canMove(x + speed, y)) {
+		// 전환할 방향이 대기중이고, 전환 가능할 때
+		if (move != move_queue && canMove(move_queue)) {
+			move = move_queue;
+		}
 
+		if (move==Movement.RIGHT && canMove(Movement.RIGHT)) {
+			x = x + speed;
 			hasPotion = (System.nanoTime()) / 1000000000 - startTime <= 4;
 			if (hasPotion == false) {
-				x = x + speed;
 				imageIndex = 0;
 			}
-
 			else {
 				imageIndex = 4;
-				x = x + speed;
 			}
 		}
-		if (left && canMove(x - speed, y)) {
+		if (move==Movement.LEFT && canMove(Movement.LEFT)) {
 			x = x - speed;
 			hasPotion = (System.nanoTime()) / 1000000000 - startTime <= 4;
 			if (hasPotion == false) {
 				imageIndex = 1;
-				x = x-speed;
 			}
 			else
 				imageIndex = 5;
 		}
-		if (up && canMove(x, y - speed)) {
+		if (move==Movement.UP && canMove(Movement.UP)) {
 			y = y - speed;
 			hasPotion = (System.nanoTime()) / 1000000000 - startTime <= 4;
 			if (hasPotion == false)
@@ -72,7 +91,7 @@ public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해
 			else
 				imageIndex = 6;
 		}
-		if (down && canMove(x, y + speed)) {
+		if (move==Movement.DOWN && canMove(Movement.DOWN)) {
 			y = y + speed;
 			hasPotion = (System.nanoTime()) / 1000000000 - startTime <= 4;
 			if (hasPotion == false)

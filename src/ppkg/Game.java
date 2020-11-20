@@ -251,14 +251,21 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (STATE == GAME) {
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-				pacman.right = true;
-			if (e.getKeyCode() == KeyEvent.VK_LEFT)
-				pacman.left = true;
-			if (e.getKeyCode() == KeyEvent.VK_UP)
-				pacman.up = true;
-			if (e.getKeyCode() == KeyEvent.VK_DOWN)
-				pacman.down = true;
+
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+				pacman.move_queue = Movement.RIGHT;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT){
+				pacman.move_queue = Movement.LEFT;
+			}
+				
+			if (e.getKeyCode() == KeyEvent.VK_UP){
+				pacman.move_queue = Movement.UP;
+			}
+				
+			if (e.getKeyCode() == KeyEvent.VK_DOWN){
+				pacman.move_queue = Movement.DOWN;
+			}
 		}
 
 		else if (STATE == START) {
@@ -278,6 +285,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	}
 
 	public void keyReleased(KeyEvent e) {
+		/*
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			pacman.right = false;
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
@@ -285,11 +293,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_UP)
 			pacman.up = false;
 		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			pacman.down = false;
+			pacman.down = false;*/
 	}
 
 	public void keyTyped(KeyEvent e) {
 
 	}
-
 }

@@ -1,5 +1,4 @@
 package ppkg;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class Map {
 	
 	public Map(String path, int MODE) {
 		this(path);
-		if
 	}
 	
 	public Map(String path) { // map(png)이 저장되어 있는 경로를 생성자로 받음
