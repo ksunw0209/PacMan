@@ -3,7 +3,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -13,23 +15,59 @@ public class Map {
 	
 	public Tile[][] tiles;
 	
-	public List<Seed> seeds;
-	public List<Potion> potions;
-	public List<Ghost> Ghosts;
-	public List<SmartGhost> SmartGhosts;
+	public List<Seed> seeds; //contains seeds and potions
+	//public List<Potion> potions;
+	public List<Ghost> Ghosts; //contains ghost and smartghosts
+	//public List<SmartGhost> SmartGhosts;
+	
+	private HashSet<Integer> randset = new HashSet<>();
 	
 	private int location=30;
+	private int potion_num;
+	private int smart_num;
+	private int speed;
 	
-	public Map(String path, int MODE) {
+	public Map(String path, int mode) {
 		this(path);
+		if(mode==0) {//easy
+			potion_num = 10;	
+			smart_num = 2;
+			speed = 1;
+		}else if(mode==1) {//medium
+			potion_num = 6;
+			smart_num = 4;
+			speed = 1;
+		}else if(mode==2) {//hard
+			potion_num = 4;
+			smart_num = 6;
+			speed = 2;
+		}
+		
+		//random generate potion
+		Random rd = new Random();
+		while(randset.size()<potion_num) {
+			int nextint = rd.nextInt(seeds.size());
+			randset.add(nextint);
+		}
+		ArrayList<Integer> randlist = new ArrayList<>(randset);
+		for(int i=0; i<potion_num; i++) {
+			Seed seed = seeds.get(randlist.get(i));
+			seed  = new Potion(seed.x, seed.y);
+			seeds.set(randlist.get(i), seed);
+		}
+		
+		for(int i=0; i<Ghosts.size(); i++) {
+			if(i<smart_num) Ghosts.set(i, new SmartGhost(Ghosts.get(i).x, Ghosts.get(i).y, speed));
+			else Ghosts.set(i, new Ghost(Ghosts.get(i).x, Ghosts.get(i).y, speed));			
+		}
 	}
 	
 	public Map(String path) { // map(png)이 저장되어 있는 경로를 생성자로 받음
 		try {
 			seeds = new ArrayList<>();
-			potions = new ArrayList<>();
+			//potions = new ArrayList<>();
 			Ghosts = new ArrayList<>();
-			SmartGhosts = new ArrayList<>();
+			//SmartGhosts = new ArrayList<>();
 			
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
 			this.width=map.getWidth();
@@ -40,8 +78,6 @@ public class Map {
 			map.getRGB(0, 0, width, height, pixels, 0, width);
 			
 			tiles =new Tile[width][height]; // GUI에 구현될 맵
-			int countpotion = 3;
-			
 			for(int i=0;i<width;i++) {
 				for(int j=0;j<height;j++) {
 					int val = pixels[i+(j*width)];
@@ -54,17 +90,9 @@ public class Map {
 						Game.pacman.x=i*32+location;
 						Game.pacman.y=j*32+location;
 					}
-					else if(val==0xFFFF0000) {
+					else if(val==0xFFFF0000||val==0xFF00FFFF) {
 						// 일반 유령
-						Ghosts.add(new Ghost(i*32+location, j*32+location));
-					}
-					else if(val==0xFF00FFFF) {
-						// 똑똑한 유령
-						SmartGhosts.add(new SmartGhost(i*32+location, j*32+location));
-					}
-					
-					else if(i+j==(width+height)/2) {
-						potions.add(new Potion(i*32+location, j*32+location));
+						Ghosts.add(new Ghost(i*32+location, j*32+location, speed));
 					}
 					else{
 						// 씨앗
@@ -83,9 +111,6 @@ public class Map {
 		for(int i=0;i<Ghosts.size();i++) {
 			Ghosts.get(i).tick();
 		}
-		for(int i=0;i<SmartGhosts.size();i++) {
-			SmartGhosts.get(i).tick();
-		}
 	}
 	
 	public void render(Graphics g) { // seeds와 tile은 상태가 바뀔 필요가 없으므로 tick함수가 존재하지 않음
@@ -96,13 +121,11 @@ public class Map {
 			}
 		}
 		
-		for(int i=0; i<potions.size(); i++)
-			potions.get(i).render(g);
+		
 		for(int i=0;i<seeds.size();i++) 
 			seeds.get(i).render(g);
 		for(int i=0;i<Ghosts.size();i++)
 			Ghosts.get(i).render(g);
-		for(int i=0;i<SmartGhosts.size();i++) 
-			SmartGhosts.get(i).render(g);
+		
 	}
 }

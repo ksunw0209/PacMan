@@ -2,7 +2,7 @@ package ppkg;
 import java.awt.*;
 import java.util.Random;
 
-public class SmartGhost extends Rectangle{
+public class SmartGhost extends Ghost{
 	
 	// 랜덤모드 <-> 스마트모드
 	private int random = 0;
@@ -18,22 +18,21 @@ public class SmartGhost extends Rectangle{
 	
 	private int direction = -1;
 	
-	public Random randomMaker;
+	public Random randomMaker = new Random();
 	
 	private int time = 0;
 	
 	private int changingTime = 60 * 5;
 	
-	private int speed = 1;
 	
 	private int lastDirection = -1;
 	
 	private int imageIndex = 0;
 	
-	public SmartGhost(int x, int y) {
+	public SmartGhost(int x, int y, int speed) {
+		super(x, y, speed);
 		randomMaker = new Random();
-		setBounds(x, y, 32, 32);
-		direction = randomMaker.nextInt(4);
+	    direction = randomMaker.nextInt(4);
 	}
 	
 	public void tick() {

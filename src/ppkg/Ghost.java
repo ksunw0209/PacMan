@@ -16,9 +16,10 @@ public class Ghost extends Rectangle{
 	
 	public Random randomDirection;
 	
-	private int speed = 1;
+	protected int speed = 1;
 	
-	public Ghost(int x, int y) {
+	public Ghost(int x, int y, int speed) {
+		this.speed = speed;
 		randomDirection = new Random();
 		setBounds(x, y, 32, 32);
 		direction = randomDirection.nextInt(4);
