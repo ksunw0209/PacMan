@@ -110,6 +110,10 @@ public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해
 					startTime = (System.nanoTime()) / 1000000000;
 					hasPotion = true;
 					break;
+				} else if (seed instanceof Cherry) {
+					curScore.score += 100;
+					map.seeds.remove(i);
+					break;
 				} else {
 					curScore.score += 10;
 					map.seeds.remove(i);

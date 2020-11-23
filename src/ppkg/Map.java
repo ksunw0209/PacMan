@@ -23,6 +23,7 @@ public class Map {
 	private HashSet<Integer> randset = new HashSet<>();
 	
 	private int location=30;
+	private static int cherry_num = 10;
 	private int potion_num;
 	private int smart_num;
 	private int speed;
@@ -34,6 +35,7 @@ public class Map {
 			smart_num = 2;
 			speed = 1;
 		}else if(mode==1) {//medium
+			
 			potion_num = 6;
 			smart_num = 4;
 			speed = 1;
@@ -43,9 +45,9 @@ public class Map {
 			speed = 2;
 		}
 		
-		//random generate potion
+		//random generate potion & cherry
 		Random rd = new Random();
-		while(randset.size()<potion_num) {
+		while(randset.size()<potion_num+cherry_num) {
 			int nextint = rd.nextInt(seeds.size());
 			randset.add(nextint);
 		}
@@ -53,6 +55,12 @@ public class Map {
 		for(int i=0; i<potion_num; i++) {
 			Seed seed = seeds.get(randlist.get(i));
 			seed  = new Potion(seed.x, seed.y);
+			seeds.set(randlist.get(i), seed);
+		}
+		
+		for(int i=potion_num; i<potion_num+cherry_num; i++) {
+			Seed seed = seeds.get(randlist.get(i));
+			seed  = new Cherry(seed.x, seed.y);
 			seeds.set(randlist.get(i), seed);
 		}
 		
@@ -110,6 +118,9 @@ public class Map {
 	public void tick() { // map에서 유령들의 상태를 바꾸고 랜더링 시킴
 		for(int i=0;i<Ghosts.size();i++) {
 			Ghosts.get(i).tick();
+		}
+		for(int i=0;i<seeds.size();i++) {
+			seeds.get(i).tick();
 		}
 	}
 	

@@ -20,4 +20,7 @@ public class Appearance { // res폴더에 있는 appearance 파일을 읽어옴
 		return appearance.getSubimage(x, y, 32, 32);
 	}
 	
+	public BufferedImage getAppearance(int x, int y, int z, int w) {
+		return appearance.getSubimage(x, y, z, w);
+	}
 }

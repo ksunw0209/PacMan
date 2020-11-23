@@ -18,4 +18,5 @@ public class Seed extends Rectangle{
 		g.fillRect(x+12, y+12, width, height);
 	}
 	
+	public void tick() {}
 }
