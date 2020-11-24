@@ -3,7 +3,7 @@ package ppkg;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
+public class Pacman extends Moveable { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
 
 	public Movement move = Movement.NOOP;
 	public Movement move_queue = Movement.NOOP;
@@ -33,24 +33,6 @@ public class Pacman extends Rectangle { // 사이즈나 포지션 관리를 쉽게 하기 위해
 		default:
 			return true;
 		}
-	}
-
-	private boolean canMove(int next_x, int next_y) { // Ghost와 같은 함수 벽이 있으면 움직이지 못함
-
-		Rectangle bounds = new Rectangle(next_x, next_y, width, height);
-		Map map = Game.map;
-
-		for (int i = 0; i < map.tiles.length; i++) {
-			for (int j = 0; j < map.tiles[0].length; j++) {
-				if (map.tiles[i][j] != null) {
-					if (bounds.intersects(map.tiles[i][j])) {
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
 	}
 
 	public void tick() { // 각 방향으로 움직일 때마다 이미지를 바꿈

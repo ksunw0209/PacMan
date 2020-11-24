@@ -34,8 +34,7 @@ public class Map {
 			potion_num = 10;	
 			smart_num = 2;
 			speed = 1;
-		}else if(mode==1) {//medium
-			
+		}else if(mode==1) {//medium			
 			potion_num = 6;
 			smart_num = 4;
 			speed = 1;

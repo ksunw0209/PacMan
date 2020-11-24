@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Ghost extends Rectangle{
+public class Ghost extends Moveable{
 	
 	private int right = 0;
 	private int left = 1;
@@ -70,25 +70,6 @@ public class Ghost extends Rectangle{
 				else
 					direction = randomDirection.nextInt(4);
 			}
-	}
-	
-	// 이동가능여부판단
-	private boolean canMove(int next_x, int next_y) {
-		
-		Rectangle bounds = new Rectangle(next_x, next_y, width, height);
-		Map map = Game.map;
-		
-		for(int i=0;i<map.tiles.length;i++) {
-			for(int j=0;j<map.tiles[0].length;j++) {
-				if(map.tiles[i][j]!=null) {
-					if(bounds.intersects(map.tiles[i][j])) {
-						return false;
-					}
-				}
-			}
-		}
-		
-		return true;
 	}
 	
 	public void render(Graphics g) {

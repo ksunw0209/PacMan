@@ -330,24 +330,6 @@ public class SmartGhost extends Ghost{
 		}
 	}
 	
-	// 이동가능여부판단
-	private boolean canMove(int next_x, int next_y) {
-		
-		Rectangle bounds = new Rectangle(next_x, next_y, width, height);
-		Map map = Game.map;
-		
-		for(int i=0;i<map.tiles.length;i++) {
-			for(int j=0;j<map.tiles[0].length;j++) {
-				if(map.tiles[i][j]!=null) {
-					if(bounds.intersects(map.tiles[i][j])) {
-						return false;
-					}
-				}
-			}
-		}
-		
-		return true;
-	}
 	
 	public void render(Graphics g) {
 		g.drawImage(Character.smartGhost[imageIndex], x, y, width, height, null);

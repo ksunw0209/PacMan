@@ -6,7 +6,8 @@ import java.awt.Rectangle;
 public class Potion extends Seed{
 	
 	public long startTime = 0;
-	private double switchTime = 7;
+	private double visible_time = 7;
+	private double invisible_time = 3;
 	private boolean showText = true;
 	
 	public Potion(int x, int y) {
@@ -20,15 +21,16 @@ public class Potion extends Seed{
 	}
 	
 	public void tick() {
-		if ((double)((System.nanoTime()) / 100000000 - startTime)>switchTime) {
-			startTime = (System.nanoTime()) / 100000000;
-			if (showText) {
-				showText = false;
-			} else
+		long time = (System.nanoTime()) / 100000000;
+		if(time-startTime>invisible_time) {
+			if(!showText) {
+				startTime = time;
 				showText = true;
-			System.out.println((System.nanoTime()) / 100000000);
-			System.out.println(startTime);
-		} // ±ôºý°Å¸²
+			}else if(time-startTime>visible_time) {
+				startTime = time;
+				showText = false;
+			}
+		}
 	}
 }
 

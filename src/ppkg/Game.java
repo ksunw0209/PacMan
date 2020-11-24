@@ -143,7 +143,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 					g.drawString("Your Rank is " + score.rank, xx + 200, yy + 180);
 					g.drawString("Press enter to restart the game", xx + 122, yy + 250);
 				} else if (WIN) {
-					g.drawString("!!! YOU WIN !!!", xx + 215, yy + 130);
+					g.drawString("YOU WIN!!", xx + 200, yy + 100);
+					g.drawString("Your Score is " + score.score, xx + 190, yy + 140);
+					g.drawString("Your Rank is " + score.rank, xx + 200, yy + 180);
 					g.drawString("Press enter to start the game", xx + 125, yy + 180);
 				} else // ¿Ã∞Â¿ª∂ß
 					g.drawString("Press enter to start the game", xx + 125, yy + 200);
