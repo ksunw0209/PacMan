@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Ghost extends Moveable{
+public class Ghost extends Movable{
 	
 	private int right = 0;
 	private int left = 1;

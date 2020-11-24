@@ -3,7 +3,7 @@ package ppkg;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Pacman extends Moveable { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
+public class Pacman extends Movable { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
 
 	public Movement move = Movement.NOOP;
 	public Movement move_queue = Movement.NOOP;
