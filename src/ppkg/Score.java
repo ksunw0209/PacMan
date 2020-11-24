@@ -62,10 +62,10 @@ public class Score {
 	public void render(Graphics g) {
 		if(Game.STATE==Game.GAME) {
 			g.setColor(Color.BLACK);
-			g.fillRect(30, 860, 150, 70);
+			g.fillRect(Game.WIDTH, 100, 150, 100);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 60));
-			g.drawString(String.valueOf(score), 30, 930);
+			g.drawString(String.valueOf(score), Game.WIDTH+15, 150);
 		}
 		
 	}

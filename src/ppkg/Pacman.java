@@ -107,8 +107,9 @@ public class Pacman extends Movable { // 사이즈나 포지션 관리를 쉽게 하기 위해 e
 		if (map.seeds.size() == 0) {
 			// win
 			// seeds를 다 먹음
-			Game.WIN = true;
 			Game.STATE = Game.START;
+			Game.WIN = true;
+			curScore.insertScore();
 			return;
 		}
 

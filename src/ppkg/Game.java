@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	/********************************************************************************************************/
 
 	public Game() {
-		Dimension dimension = new Dimension(Game.WIDTH, Game.HEIGHT);
+		Dimension dimension = new Dimension(Game.WIDTH+150, Game.HEIGHT);
 		setPreferredSize(dimension);
 		setMinimumSize(dimension);
 		setMaximumSize(dimension);
@@ -100,12 +100,15 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		if (STATE == GAME) {
 			pacman.render(g);
 			map.render(g);
-			score.render(g);
+			
+			g.setColor(new Color(0, 0, 150));
+			g.fillRect(WIDTH, 0, 150, HEIGHT);
 
 			g.setColor(Color.white);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
-			g.drawString("SCORE", 30, 870);
-
+			g.drawString("SCORE", WIDTH + 15, 50);
+			
+			score.render(g);
 		}
 
 		else if (STATE == SELECT_MODE) {
