@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 		score = new Score("res\\scoreboard\\scoreboard.txt");
 		pacman = new Pacman(Game.WIDTH / 2, Game.HEIGHT / 2); // 모니터 정 중앙에 배치
-		map = new Map("/map/map.png");
+		map = new Map("/map/map2.png");
 		appearance = new Appearance("/appearance/appearance.png");
 		appearance_inversion = new Appearance_inversion("/appearance/appearance_inversion.png");
 
@@ -201,7 +201,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 				isEnter = false;
 				if (MODE != -1) {
 					pacman = new Pacman(Game.WIDTH / 2, Game.HEIGHT / 2);
-					map = new Map("/map/map.png", MODE);
+					map = new Map("/map/map2.png", MODE);
 					appearance = new Appearance("/appearance/appearance.png");
 					appearance_inversion = new Appearance_inversion("/appearance/appearance_inversion.png");
 					time=0;
@@ -270,18 +270,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		if (STATE == GAME) {
 
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				pacman.move_queue = Movement.RIGHT;
+				pacman.setMoveQueue(Movement.RIGHT);
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				pacman.move_queue = Movement.LEFT;
+				pacman.setMoveQueue(Movement.LEFT);
 			}
-
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				pacman.move_queue = Movement.UP;
+				pacman.setMoveQueue(Movement.UP);
 			}
-
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				pacman.move_queue = Movement.DOWN;
+				pacman.setMoveQueue(Movement.DOWN);
 			}
 		}
 

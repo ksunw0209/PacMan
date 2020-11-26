@@ -101,6 +101,9 @@ public class Map {
 						// ÀÏ¹Ý À¯·É
 						Ghosts.add(new Ghost(i*32+location, j*32+location, speed));
 					}
+					else if(val==0xFF00FF) {
+						// Portal
+					}
 					else{
 						// ¾¾¾Ñ
 						seeds.add(new Seed(i*32+location, j*32+location));

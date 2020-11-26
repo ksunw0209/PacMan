@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 
 public class Pacman extends Movable { // 사이즈나 포지션 관리를 쉽게 하기 위해 extends Rectangle
 
-	public Movement move = Movement.NOOP;
-	public Movement move_queue = Movement.NOOP;
+	private Movement move = Movement.NOOP;
+	private Movement move_queue = Movement.NOOP;
 
 	private int speed = 3;
 	private int imageIndex = 0;
@@ -18,6 +18,10 @@ public class Pacman extends Movable { // 사이즈나 포지션 관리를 쉽게 하기 위해 e
 		curScore = Game.score;
 		curScore.score = 0;
 		setBounds(x, y, 30, 30);
+	}
+	
+	public void setMoveQueue(Movement move) {
+		move_queue = move;
 	}
 
 	public boolean canMove(Movement move) {
@@ -134,6 +138,9 @@ public class Pacman extends Movable { // 사이즈나 포지션 관리를 쉽게 하기 위해 e
 
 			}
 		}
+		
+		// Portal
+		super.tick();
 
 	}
 

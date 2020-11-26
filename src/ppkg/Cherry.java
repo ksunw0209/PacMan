@@ -14,7 +14,7 @@ public class Cherry extends Seed{
 		
 	}
 	public void render(Graphics g) {		
-			g.drawImage(image, x, y, 32, 32, null);	
+		g.drawImage(image, x, y, 32, 32, null);	
 	}
 	
 }

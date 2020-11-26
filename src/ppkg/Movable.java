@@ -24,7 +24,31 @@ public abstract class Movable extends Rectangle {
 		return true;
 	}
 	
-	public abstract void tick();
+	public void tick() {
+		Map map = Game.map;
+		
+		// Portal
+		int map_width = map.width;
+		int map_height = map.height;
+		
+		int left_end = 32;
+		int up_end = 32;
+		int right_end = map_width * 32;
+		int down_end = map_height * 32;
+		
+		if (x < left_end) {
+			x = right_end;
+		}
+		else if (x > right_end) {
+			x = left_end;
+		}
+		else if (y < up_end) {
+			y = down_end;
+		}
+		else if (y > down_end) {
+			y = up_end;
+		}
+	}
 	
 	public abstract void render(Graphics g);
 }

@@ -26,50 +26,53 @@ public class Ghost extends Movable{
 	}
 	
 	public void tick() { // 랜덤으로 방향을 생성해서 만약 움직일 수 있다면 이동, 움직일 수 없다면 다시 방향을 생성함
-			if(direction==right) {
-				if(canMove(x+speed, y)) {
-					x=x+speed;
-					if(Pacman.hasPotion==false)
-						imageIndex = 0;
-					else
-						imageIndex = 4;
-				}
+		if(direction==right) {
+			if(canMove(x+speed, y)) {
+				x=x+speed;
+				if(Pacman.hasPotion==false)
+					imageIndex = 0;
 				else
-					direction = randomDirection.nextInt(4);
+					imageIndex = 4;
 			}
-			else if(direction==left) {
-				if(canMove(x-speed, y)) {
-					x=x-speed;
-					if(Pacman.hasPotion==false)
-						imageIndex = 1;
-					else
-						imageIndex = 5;
-				}
+			else
+				direction = randomDirection.nextInt(4);
+		}
+		else if(direction==left) {
+			if(canMove(x-speed, y)) {
+				x=x-speed;
+				if(Pacman.hasPotion==false)
+					imageIndex = 1;
 				else
-					direction = randomDirection.nextInt(4);
+					imageIndex = 5;
 			}
-			else if(direction==up) {
-				if(canMove(x, y-speed)) {
-					y=y-speed;
-					if(Pacman.hasPotion==false)
-						imageIndex = 2;
-					else
-						imageIndex = 6;
-				}
+			else
+				direction = randomDirection.nextInt(4);
+		}
+		else if(direction==up) {
+			if(canMove(x, y-speed)) {
+				y=y-speed;
+				if(Pacman.hasPotion==false)
+					imageIndex = 2;
 				else
-					direction = randomDirection.nextInt(4);
+					imageIndex = 6;
 			}
-			else if(direction==down) {
-				if(canMove(x, y+speed)) {
-					y=y+speed;
-					if(Pacman.hasPotion==false)
-						imageIndex = 3;
-					else
-						imageIndex = 7;
-				}
+			else
+				direction = randomDirection.nextInt(4);
+		}
+		else if(direction==down) {
+			if(canMove(x, y+speed)) {
+				y=y+speed;
+				if(Pacman.hasPotion==false)
+					imageIndex = 3;
 				else
-					direction = randomDirection.nextInt(4);
+					imageIndex = 7;
 			}
+			else
+				direction = randomDirection.nextInt(4);
+		}
+		
+		// Portal
+		super.tick();
 	}
 	
 	public void render(Graphics g) {
